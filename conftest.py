@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.service import Service
 from common.conf import Cfg
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="class")
 def driver():
     """
     Main fixture
