@@ -5,7 +5,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from common.conf import Cfg
+
 
 
 @pytest.fixture(scope="class")

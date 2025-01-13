@@ -1,4 +1,9 @@
+"""
+Tests for login page
+"""
+import allure
 import pytest
+from loguru import logger
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -7,17 +12,18 @@ from common.conf import Cfg
 from common.pages.login_page import LoginPage
 
 
+@allure.suite('Authorization')
+@allure.sub_suite('Positive authorization')
 class TestPositiveLogin:
-    """"
-    Tests for login page
-    """
 
-    def test_successful_login(self, driver):
+    def test_successful_login(self, clear_report, driver):
+        logger.info('AUTHORIZATION WITH VALID CREDS')
         login = LoginPage(driver=driver)
         login.authorization()
         assert driver.current_url == f'{login.base_url}/'
 
-
+@allure.suite('Authorization')
+@allure.sub_suite('Negative login')
 class TestNegativeLogin:
     cases = [
         {'login': Cfg.VALID['email'], 'password': 'invalid_password'},
@@ -30,6 +36,7 @@ class TestNegativeLogin:
 
     @pytest.mark.parametrize('case', cases)
     def test_invalid_login(self, case, driver):
+        logger.info('TRY TO AUTHORIZATION WITH INVALID EMAIL OR PASSWORD')
         login = LoginPage(driver)
         login.go_to_site()
         login.enter_login(login=case['login'])
@@ -39,7 +46,8 @@ class TestNegativeLogin:
             EC.visibility_of_element_located(locator=(By.CSS_SELECTOR, '[class*="error_text"]'))).text
         assert error_message == 'Неверные логин или пароль'
 
-
+@allure.suite('Authorization')
+@allure.sub_suite('Negative email validation')
 class TestEmailValidation:
     cases = [
         {'login': '', 'password': 'invalid_password'},
@@ -52,6 +60,7 @@ class TestEmailValidation:
 
     @pytest.mark.parametrize('case', cases)
     def test_invalid_email(self, case, driver):
+        logger.info('CHECKING EMAIL FIELD VALIDATION')
         login = LoginPage(driver)
         login.go_to_site()
         login.enter_login(login=case['login'])
