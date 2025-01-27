@@ -19,8 +19,8 @@ class TestPokemons:
     def test_trainer_id(self, driver, trainer_id=Cfg.TRAINER_ID):
         pokemons = PokemonsPage(driver)
         pokemons.authorization()
-        pokemons.get_trainer_id()
-        assert trainer_id == int(pokemons.get_trainer_id()), 'Unexpected trainer ID'
+        actual_id = pokemons.get_trainer_id()
+        assert trainer_id == int(actual_id), 'Unexpected trainer ID'
 
     def test_correct_headers(self, driver):
         pokemons = PokemonsPage(driver)
