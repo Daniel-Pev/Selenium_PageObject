@@ -50,6 +50,3 @@ class TestTrainer:
         trainer.go_to_site(url=f'{Cfg.URL}/trainer/{Cfg.TRAINER_ID}')
         with allure.step('Checking export button is clickable'):
             assert trainer.find_export_button().is_displayed()
-
-
-
