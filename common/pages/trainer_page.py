@@ -2,9 +2,12 @@
 My trainer page class
 """
 
+import allure
 from loguru import logger
 from selenium.webdriver.common.by import By
-import allure
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
 from common.pages.base_page import BasePage
 
 
@@ -18,6 +21,8 @@ class MyTrainerPage(BasePage):
     def get_headers(self):
         with allure.step('Checking headers'):
             logger.info('Checking headers')
+            WebDriverWait(self.driver, timeout=4).until(
+                EC.visibility_of_all_elements_located((By.CSS_SELECTOR, '.header__btn')))
             return self.find_elements(locator=(By.CSS_SELECTOR, '.header__btn'))
 
     def get_trainer_name(self):

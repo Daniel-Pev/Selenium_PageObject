@@ -28,6 +28,11 @@ class TestPokemons:
         headers = pokemons.get_headers()
         assert [i.text for i in headers] == ['Покемоны', "Тренеры", "Рейтинг"], 'Unexpected header'
 
+    def test_title(self, driver):
+        pokemons = PokemonsPage(driver)
+        pokemons.authorization()
+        assert 'Покемоны' == pokemons.get_title().text
+
     def test_pagination(self, driver):
         pokemons = PokemonsPage(driver)
         pokemons.authorization()
