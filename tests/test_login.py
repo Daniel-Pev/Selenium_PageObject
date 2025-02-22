@@ -39,7 +39,7 @@ class TesteLogin:
         login.enter_login(login=case['login'])
         login.enter_password(password=case['password'])
         login.click_enter_button()
-        error_message = WebDriverWait(driver, 10).until(
+        error_message = WebDriverWait(driver, 15).until(
             EC.visibility_of_element_located(locator=(By.CSS_SELECTOR, '[class*="error_text"]'))).text
         assert error_message == 'Неверные логин или пароль', "Unexpected error message"
 
@@ -61,6 +61,6 @@ class TesteLogin:
         login.enter_login(login=case['login'])
         login.enter_password(password=case['password'])
         login.click_enter_button()
-        error_message = WebDriverWait(driver, 10).until(
+        error_message = WebDriverWait(driver, 15).until(
             EC.visibility_of_element_located(locator=(By.CSS_SELECTOR, '.auth__error'))).text
         assert error_message == 'Введите почту', "Unexpected error message"

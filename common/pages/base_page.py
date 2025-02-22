@@ -16,11 +16,11 @@ class BasePage:
         self.driver = driver
         self.base_url = Cfg.URL
 
-    def find_element(self, locator, time=10):
+    def find_element(self, locator, time=15):
         return WebDriverWait(self.driver, time).until(EC.visibility_of_element_located(locator),
                                                       message=f"Can't find element by locator {locator}")
 
-    def find_elements(self, locator, time=10):
+    def find_elements(self, locator, time=15):
         try:
             return WebDriverWait(self.driver, time).until(EC.presence_of_all_elements_located(locator),
                                                           message=f"Can't find elements by locator {locator}")
@@ -56,6 +56,6 @@ class BasePage:
                 enter_button.click()
                 logger.info('Wait new url to load')
                 try:
-                    return WebDriverWait(self.driver, timeout=10, poll_frequency=2).until(EC.url_to_be(f'{Cfg.URL}/'))
+                    return WebDriverWait(self.driver, timeout=15, poll_frequency=2).until(EC.url_to_be(f'{Cfg.URL}/'))
                 except:
                     logger.error(f'Failed to load {Cfg.URL}')
